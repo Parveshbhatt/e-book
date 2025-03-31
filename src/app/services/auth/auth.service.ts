@@ -15,7 +15,7 @@ export class AuthService {
     name: 'Test User'
   };
 
-  // Simulated JWT token with user information (This is generated from the backend)
+  // Simulated JWT token with user information (This will be generated from the backend)
   private readonly MOCK_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
   constructor(private router: Router) { }
@@ -54,9 +54,13 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.router.navigate(['/auth/login']);
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.router.navigate(['/auth/login']);
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    }
   }
 
   isAuthenticated(): boolean {
@@ -64,9 +68,11 @@ export class AuthService {
     if (!token) return false;
 
     try {
-      const decodedToken: any = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-      return decodedToken.exp > currentTime;
+      // Simulated JWT validation,  but for now just return true
+      return true;
+      // const decodedToken: any = jwtDecode(token);
+      // const currentTime = Date.now() / 1000;
+      // return decodedToken.exp > currentTime;
     } catch {
       return false;
     }

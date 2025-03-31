@@ -1,0 +1,6 @@
+<div class="flex flex-wrap gap-4 h-full w-full justify-center">
+  @for (_ of [].constructor(count); track $index) {
+  <div class="bg-gray-200 animate-pulse rounded-lg" [ngClass]="[width, height]">
+  </div>
+  }
+</div>

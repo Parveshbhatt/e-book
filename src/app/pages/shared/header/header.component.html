@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="z-20 fixed top-0 start-0 w-full bg-white border border-b-1 border-border min-h-[72px]">
+  <div class="py-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold text-gray-900 cursor-pointer" [routerLink]="['/dashboard/home']"
+          routerLinkActive="router-link-active">E-Book Library</h1>
+        <ul>
+          <li><a routerLink="/dashboard/home" class="cursor-pointer">Home</a></li>
+        </ul>
+        <button (click)="logout()"
+          class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

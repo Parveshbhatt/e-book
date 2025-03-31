@@ -42,7 +42,7 @@ export class SignupComponent {
 
       this.authService.signup(this.signupForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/dashboard/home']);
         },
         error: (error) => {
           this.errorMessage = error.message || 'Signup failed. Please try again.';

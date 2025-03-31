@@ -4,7 +4,7 @@ export interface Book {
   author: string;
   category: string;
   price: number;
-  content: string[];
+  content: string; // Html content
   totalPages: number;
 }
 
@@ -14,4 +14,9 @@ export interface ReadingProgress {
   currentLine: number;
   category: string;
   lastReadAt: Date;
+}
+
+export interface ContentElement {
+  element: HTMLElement;
+  index: number;
 }
