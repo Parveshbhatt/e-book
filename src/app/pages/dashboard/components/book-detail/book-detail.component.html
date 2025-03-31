@@ -1,0 +1,82 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+
+    <!-- Loading Placeholder -->
+    @if (isLoadingBook) {
+    <app-skeleton-loader [count]="2" width="w-full md:w-[48%]"
+      height="h-40 md:h-[calc(100vh-116px)]"></app-skeleton-loader>
+    }
+
+    <div class="flex flex-col md:grid md:grid-cols-[300px_1fr] gap-6" [ngClass]="{'opacity-0': isLoadingBook}">
+
+      <!-- Sidebar (Analytics) -->
+      <div class="bg-white p-6 border border-gray-200 rounded-lg md:border-r md:rounded-none order-1 md:order-none">
+        <h2 class="text-xl font-bold text-gray-900 mb-6 text-center md:text-left">Reading Progress</h2>
+        <div class="space-y-6">
+
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-2">Overall Progress</label>
+            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-green-500 transition-all duration-300" [style.width.%]="overallProgress"></div>
+            </div>
+            <span class="text-sm text-gray-600 mt-1 block text-center md:text-left">
+              {{ overallProgress }}%
+            </span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-sm font-medium text-gray-600">Current Page</span>
+            <span class="text-gray-900">{{ currentPage + 1 }} of {{ book.totalPages }}</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-sm font-medium text-gray-600">Current Line</span>
+            <span class="text-gray-900">{{ currentLine + 1 }} of {{ totalLines }}</span>
+          </div>
+
+          <div class="flex justify-between flex-col gap-1.5">
+            <span class="text-sm font-medium text-gray-600">Category Progress</span>
+            <span class="text-gray-900">{{ categoryProgress }}% in {{ book.category }}</span>
+          </div>
+
+          <div class="flex justify-between flex-col gap-1.5">
+            <span class="text-sm font-medium text-gray-600">Last Read</span>
+            <span class="text-gray-900">{{ lastReadTime | date:'short' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="p-4 md:p-8 bg-white rounded-lg shadow-md">
+        <div class="mb-6 text-center md:text-left">
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{{ book.title }}</h1>
+          <p class="text-gray-600">by {{ book.author }}</p>
+        </div>
+
+        <div class="mb-8 relative">
+          @if (isLoadingPage) {
+          <div
+            class="flex justify-center items-center h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+          }
+          <div #contentContainer [ngClass]="{'opacity-50': isLoadingPage}" class="book-content"
+            [innerHTML]="sanitizedContent"></div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex flex-col md:flex-row gap-4">
+          <button (click)="previousPage()" [disabled]="currentPage === 0"
+            class="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto">
+            Previous Page
+          </button>
+          <button (click)="nextPage()" [disabled]="currentPage === book.totalPages - 1"
+            class="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto">
+            Next Page
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
