@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   getProgressPercentage(bookId: string, totalPages: number): number {
     const progress = this.progressMap.get(bookId);
     if (!progress || totalPages === 0) return 0;
-    return Math.round((progress.currentPage / totalPages) * 100);
+    return Math.round((progress.currentPage / (totalPages - 1)) * 100);
   }
 
   getLastReadDate(bookId: string): Date | null {
